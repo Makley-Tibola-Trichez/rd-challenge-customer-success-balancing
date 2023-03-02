@@ -4,6 +4,8 @@ interface Person {
   customers?: Person[];
 }
 
+const CUSTOMERS_SUCCESS_WITH_SAME_AMOUT_OF_CUSTOMERS = 0;
+
 export function customerSuccessBalancing(
   customerSuccess: Person[],
   customers: Person[],
@@ -35,7 +37,7 @@ export function customerSuccessBalancing(
     return customersSuccessSortedByHowManyCustomersCanServe[0].id;
   }
 
-  return 0;
+  return CUSTOMERS_SUCCESS_WITH_SAME_AMOUT_OF_CUSTOMERS;
 }
 
 function getAvaliablesCustomersSuccess(
@@ -111,158 +113,3 @@ export function mapEntities(arr) {
 export function arraySeq(count, startAt) {
   return Array.apply(0, Array(count)).map((it, index) => index + startAt);
 }
-
-// test1();
-// test2();
-// test3();
-// test4();
-// test5();
-// test6();
-// test7();
-
-// function test1() {
-//   console.groupCollapsed("test1");
-//   const css = [
-//     { id: 1, score: 60 },
-//     { id: 2, score: 20 },
-//     { id: 3, score: 95 },
-//     { id: 4, score: 75 },
-//   ];
-//   const customers = [
-//     { id: 1, score: 90 },
-//     { id: 2, score: 20 },
-//     { id: 3, score: 70 },
-//     { id: 4, score: 40 },
-//     { id: 5, score: 60 },
-//     { id: 6, score: 10 },
-//   ];
-//   const csAway = [2, 4];
-
-//   let _result = customerSuccessBalancing(css, customers, csAway);
-
-//   console.log(`
-//     expected: 1
-//     received: ${_result}
-//   `);
-
-//   console.groupEnd();
-// }
-
-// function test2() {
-//   console.group("test2");
-
-//   const css = mapEntities([11, 21, 31, 3, 4, 5]);
-//   const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
-//   const csAway = [];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-//   console.log(`
-//     expected: 0
-//     received: ${_result}
-//   `);
-//   console.groupEnd();
-// }
-
-// function test3() {
-//   console.group("test3");
-//   const testTimeoutInMs = 100;
-//   const testStartTime = new Date().getTime();
-
-//   const css = mapEntities(arraySeq(999, 1));
-
-//   const customers = buildSizeEntities(10000, 998);
-//   const csAway = [999];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-
-//   console.log(`
-//     expected: 998
-//     received: ${_result}
-//   `);
-
-//   if (new Date().getTime() - testStartTime > testTimeoutInMs) {
-//     console.error(`Test took longer than ${testTimeoutInMs}ms!`);
-//     return;
-//   }
-//   console.groupEnd();
-// }
-
-// function test4() {
-//   console.group("test4");
-
-//   const css = mapEntities([1, 2, 3, 4, 5, 6]);
-//   const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
-//   const csAway = [];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-//   console.log(`
-//     expected: 0
-//     received: ${_result}
-//   `);
-//   console.groupEnd();
-// }
-
-// function test5() {
-//   console.group("test5");
-
-//   const css = mapEntities([100, 2, 3, 6, 4, 5]);
-//   const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
-//   const csAway = [];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-//   console.log(`
-//     expected: 1
-//     received: ${_result}
-//   `);
-//   console.groupEnd();
-// }
-
-// function test6() {
-//   console.group("test6");
-
-//   const css = mapEntities([100, 99, 88, 3, 4, 5]);
-//   const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
-//   const csAway = [1, 3, 2];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-//   console.log(`
-//     expected: 0
-//     received: ${_result}
-//   `);
-
-//   console.groupEnd();
-// }
-
-// function test7() {
-//   console.group("test7");
-
-//   const css = mapEntities([100, 99, 88, 3, 4, 5]);
-//   const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
-//   const csAway = [4, 5, 6];
-
-//   const _result = customerSuccessBalancing(css, customers, csAway);
-//   console.log(`
-//     expected: 3
-//     received: ${_result}
-//   `);
-//   console.groupEnd();
-// }
-
-// function buildSizeEntities(size, score) {
-//   const result: Person[] = [];
-//   for (let i = 0; i < size; i += 1) {
-//     result.push({ id: i + 1, score });
-//   }
-//   return result;
-// }
-
-// function mapEntities(arr) {
-//   return arr.map((item, index) => ({
-//     id: index + 1,
-//     score: item,
-//   }));
-// }
-
-// function arraySeq(count, startAt) {
-//   return Array.apply(0, Array(count)).map((it, index) => index + startAt);
-// }
