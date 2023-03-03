@@ -34,7 +34,9 @@ export function customerSuccessBalancing(
     );
 
   const customersSuccessSortedByHowManyCustomersCanServe =
-    sortCustomersSuccessByWichCustomersCanServe(customersSuccessWithCustomers);
+    sortCustomersSuccessByHowManyCustomersCanServe(
+      customersSuccessWithCustomers
+    );
 
   if (
     customersSuccessSortedByHowManyCustomersCanServe[0]?.customers?.length !==
@@ -57,7 +59,7 @@ function sortCustomersSuccessByScore(customersSuccess: Person[]) {
   return customersSuccess.sort((cs1, cs2) => cs1.score - cs2.score);
 }
 
-function sortCustomersSuccessByWichCustomersCanServe(
+function sortCustomersSuccessByHowManyCustomersCanServe(
   customersSuccess: Person[]
 ) {
   return customersSuccess.sort(
