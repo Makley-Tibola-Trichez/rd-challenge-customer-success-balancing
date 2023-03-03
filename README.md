@@ -5,6 +5,8 @@ O algoritmo foi implementado nas seguintes linguagens:
 * Typescript
 * Ruby
 
+
+## Observações
 Tive mais facilidade em implementar em javascript e typescript, pois são as ferramentas que mais utilizo.
 
 Também convido a olhar o script em Ruby.
