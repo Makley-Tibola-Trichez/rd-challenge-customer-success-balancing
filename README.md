@@ -63,3 +63,10 @@ ruby customer_success_balancing.rb
 ```
 
 
+---
+
+## Informações sobre desenvolvedor
+Nome: Makley Tibola Trichez
+
+email: tibolamakley1@gmail.com
+
