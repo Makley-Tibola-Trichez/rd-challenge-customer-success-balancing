@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'timeout'
 
+CUSTOMERS_SUCCESS_WITH_SAME_AMOUT_OF_CUSTOMERS = 0
+
 class CustomerSuccessBalancing
   def initialize(customer_success, customers, away_customer_success)
     @customer_success = customer_success
@@ -10,7 +12,62 @@ class CustomerSuccessBalancing
 
   # Returns the ID of the customer success with most customers
   def execute
-    # Write your solution here
+    customers_success_availables = get_avaliables_customers_success()
+
+    customers_success_availables_sorted_by_score = sort_customers_success_by_score(customers_success_availables)
+
+    customers_grouped_by_score = group_customers_by_score()
+
+    customers_success_with_customers = add_customers_to_qualifieds_customers_success(customers_success_availables_sorted_by_score, customers_grouped_by_score)
+
+    customers_success_sorted_by_home_many_customers_can_serve = sort_customers_success_by_wich_customers_can_serve(customers_success_with_customers)
+
+    if customers_success_sorted_by_home_many_customers_can_serve[0][:customers].length != customers_success_sorted_by_home_many_customers_can_serve[1][:customers].length
+      return customers_success_sorted_by_home_many_customers_can_serve[0][:id]
+    end
+
+    return CUSTOMERS_SUCCESS_WITH_SAME_AMOUT_OF_CUSTOMERS
+  end
+
+
+  def get_avaliables_customers_success
+    return @customer_success.filter{|customer_success| !@away_customer_success.include?(customer_success[:id])}
+  end
+
+  def sort_customers_success_by_score(customers_success)
+    return customers_success.sort_by{|customer_success| customer_success[:score]}
+  end
+  
+  def group_customers_by_score()
+    customers_grouped_by_score = {}
+    @customers.each do |customer|
+      group_of_customers = customers_grouped_by_score[customer[:score]]
+      new_group_of_customers = group_of_customers.nil? ? [customer] : group_of_customers + [customer]
+      customers_grouped_by_score[customer[:score]] = new_group_of_customers
+    end
+    customers_grouped_by_score.sort.to_h
+  end
+
+  def add_customers_to_qualifieds_customers_success(customers_success, customers_grouped_by_score)
+    customers_groups_scores = customers_grouped_by_score.keys
+
+    customers_success.map do |cs|
+      cs_score = cs[:score]
+
+      first_overscore = customers_groups_scores.find_index { |score| score.to_i > cs_score }
+
+      customers_groups_scores_keys = customers_groups_scores.slice!(0, first_overscore || customers_groups_scores.length)
+
+      cs[:customers] = customers_groups_scores_keys
+                          .map { |score_key| customers_grouped_by_score[score_key] }
+                          .flatten
+    end
+
+    return customers_success
+  end
+
+  def sort_customers_success_by_wich_customers_can_serve(customers_success)
+    return customers_success.sort_by { |cs| cs[:customers].length }.reverse
   end
 end
 
