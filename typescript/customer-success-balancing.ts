@@ -6,6 +6,12 @@ interface Person {
 
 const CUSTOMERS_SUCCESS_WITH_SAME_AMOUT_OF_CUSTOMERS = 0;
 
+/**
+ * Returns the id of the CustomerSuccess with the most customers
+ * @param customerSuccess
+ * @param customers
+ * @param customerSuccessAway
+ */
 export function customerSuccessBalancing(
   customerSuccess: Person[],
   customers: Person[],
@@ -79,13 +85,13 @@ function addCustomersToQualifiedsCustomersSuccess(
   return customersSuccess.map((cs) => {
     const csScore = cs.score;
 
-    const firstOverScore = customersGroupsScores.findIndex(
+    const firstOverscore = customersGroupsScores.findIndex(
       (value) => Number(value) > csScore
     );
 
     const customersGroupsScoresKeys = customersGroupsScores.splice(
       0,
-      firstOverScore < 0 ? customersGroupsScores.length : firstOverScore
+      firstOverscore < 0 ? customersGroupsScores.length : firstOverscore
     );
 
     cs.customers = customersGroupsScoresKeys
